@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Synx AI & Automation — Auth</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #04060f;
+    --surface: #090d1a;
+    --surface2: #0e1425;
+    --border: rgba(99,179,237,0.12);
+    --border-hover: rgba(99,179,237,0.28);
+    --accent: #38bdf8;
+    --accent2: #6ee7b7;
+    --text: #e2eaf7;
+    --muted: #5a6a88;
+    --error: #f87171;
+    --success: #4ade80;
+    --font-display: 'Rajdhani', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    z-index: 0;
+  }
+
+  /* Glow orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.18;
+    z-index: 0;
+    animation: drift 12s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 500px; height: 500px; background: #38bdf8; top: -150px; left: -150px; }
+  .orb2 { width: 400px; height: 400px; background: #6ee7b7; bottom: -120px; right: -100px; animation-delay: -6s; }
+
+  @keyframes drift { from { transform: translate(0,0); } to { transform: translate(30px, 20px); } }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 460px;
+    padding: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Logo */
+  .logo-block {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .logo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(110,231,183,0.12));
+    border: 1px solid rgba(56,189,248,0.25);
+    margin-bottom: 0.8rem;
+  }
+  .logo-icon svg { width: 26px; height: 26px; }
+  .logo-name {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  .logo-name span { color: var(--accent); }
+  .logo-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem 2.2rem;
+    backdrop-filter: blur(12px);
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border);
+  }
+  .tab {
+    flex: 1;
+    padding: 9px;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.3px;
+  }
+  .tab.active {
+    background: var(--surface2);
+    color: var(--accent);
+    border: 1px solid rgba(56,189,248,0.2);
+  }
+
+  /* Section */
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Form */
+  .field { margin-bottom: 1.1rem; }
+  label {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+  input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input::placeholder { color: #2e3d58; }
+  input:focus {
+    border-color: rgba(56,189,248,0.45);
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.08);
+  }
+
+  /* Button */
+  .btn {
+    width: 100%;
+    margin-top: 1.4rem;
+    padding: 12px;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #38bdf8, #22d3b0);
+    color: #04060f;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+  }
+  .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn:active { transform: scale(0.98); }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+  /* Switch link */
+  .switch-link {
+    text-align: center;
+    margin-top: 1.4rem;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .switch-link a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .switch-link a:hover { text-decoration: underline; }
+
+  /* Response */
+  .response {
+    display: none;
+    margin-top: 1rem;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .response.success {
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.25);
+    color: var(--success);
+  }
+  .response.error {
+    background: rgba(248,113,113,0.08);
+    border: 1px solid rgba(248,113,113,0.2);
+    color: var(--error);
+  }
+
+
+
+  /* Step indicator */
+  .step-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1.6rem; }
+  .step-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600;
+    border: 1px solid var(--border); color: var(--muted); flex-shrink: 0; transition: all 0.3s;
+  }
+  .step-dot.active { background: var(--accent); color: #04060f; border-color: var(--accent); }
+  .step-dot.done { background: var(--surface2); color: var(--accent); border-color: rgba(56,189,248,0.3); }
+  .step-line { flex: 1; height: 1px; background: var(--border); }
+  .otp-row { display: flex; gap: 8px; }
+  .otp-row input { flex: 1; }
+  .btn-sm {
+    padding: 11px 14px; font-size: 12px; white-space: nowrap; width: auto; margin-top: 0;
+    letter-spacing: 1px; background: transparent; border: 1px solid rgba(56,189,248,0.25);
+    color: var(--accent); border-radius: 10px; font-family: var(--font-display);
+    font-weight: 600; text-transform: uppercase; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-sm:hover { background: rgba(56,189,248,0.08); }
+
+  /* Divider */
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 1.4rem 0 0;
+    font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 11px;
+    color: #2a3750;
+    letter-spacing: 0.5px;
+  }
+  .footer span { color: var(--accent); opacity: 0.6; }
+
+  /* Loading spinner */
+  .spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid rgba(4,6,15,0.3);
+    border-top-color: #04060f;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<div class="wrapper">
+
+  <div class="logo-block">
+    <div class="logo-icon">
+      <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 2L3 7.5V18.5L13 24L23 18.5V7.5L13 2Z" stroke="#38bdf8" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M13 8L8 10.8V16.2L13 19L18 16.2V10.8L13 8Z" fill="rgba(56,189,248,0.25)" stroke="#6ee7b7" stroke-width="1"/>
+        <circle cx="13" cy="13" r="2" fill="#38bdf8"/>
+      </svg>
+    </div>
+    <div class="logo-name">Synx <span>AI</span></div>
+    <div class="logo-tag">& Automation Platform</div>
+  </div>
+
+  <div class="card">
+    <div class="tabs">
+      <button class="tab active" id="tab-register" onclick="switchTab('register')">Register</button>
+      <button class="tab" id="tab-login" onclick="switchTab('login')">Login</button>
+    </div>
+
+    <!-- ── REGISTER ── -->
+    <div class="section active" id="register">
+
+      <!-- Step indicator -->
+      <div class="step-row">
+        <div class="step-dot active" id="reg-s1">1</div>
+        <div class="step-line"></div>
+        <div class="step-dot" id="reg-s2">2</div>
+      </div>
+
+      <!-- Step 1: Details -->
+      <div id="reg-step1">
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" id="reg-name" placeholder="e.g. Arjun Kumar" autocomplete="name"/>
+        </div>
+        <div class="field">
+          <label>Phone Number</label>
+          <input type="text" id="reg-phone" placeholder="91XXXXXXXXXX" autocomplete="tel"/>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="reg-pass" placeholder="Create a password" autocomplete="new-password"/>
+        </div>
+        <button class="btn" id="reg-btn" onclick="register()">Continue &rarr;</button>
+      </div>
+
+      <!-- Step 2: OTP Verify -->
+      <div id="reg-step2" style="display:none">
+        <div style="font-size:13px; color:var(--muted); margin-bottom:1.2rem; line-height:1.6;">
+          An OTP has been sent to your WhatsApp number. Enter it below to activate your account.
+        </div>
+        <div class="field">
+          <label>OTP Code</label>
+          <div class="otp-row">
+            <input type="text" id="reg-otp" placeholder="Enter 6-digit OTP" maxlength="6" inputmode="numeric"/>
+            <button class="btn-sm" onclick="resendRegOTP()">Resend</button>
+          </div>
+        </div>
+        <button class="btn" id="reg-verify-btn" onclick="verifyRegOTP()">Verify &amp; Activate</button>
+      </div>
+
+      <div class="response" id="reg-res"></div>
+      <div class="switch-link" style="margin-top:1.2rem">Already have an account? <a onclick="switchTab('login')">Sign in</a></div>
+    </div>
+
+    <!-- ── LOGIN ── -->
+    <div class="section" id="login">
+      <div class="field">
+        <label>Phone Number</label>
+        <input type="text" id="login-phone" placeholder="91XXXXXXXXXX" autocomplete="tel"/>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password"/>
+      </div>
+      <button class="btn" id="login-btn" onclick="login()">Sign In</button>
+      <div class="response" id="login-res"></div>
+      <div class="divider">or</div>
+      <div class="switch-link" style="margin-top:1rem">New to Synx AI? <a onclick="switchTab('register')">Create account</a></div>
+    </div>
+
+
+
+  </div>
+
+  <div class="footer">Secured by <span>Synx AI &amp; Automation</span> &mdash; All rights reserved</div>
+</div>
+
+<script>
+  const BASE = "http://localhost:8000";
+
+  function switchTab(tab) {
+    ['register','login'].forEach((t) => {
+      document.getElementById(t).classList.toggle('active', t === tab);
+      document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+    });
+  }
+
+  function showRes(id, msg, type) {
+    const el = document.getElementById(id);
+    el.innerHTML = msg;
+    el.className = 'response ' + type;
+    el.style.display = 'block';
+  }
+
+  function setLoading(btnId, loading, label) {
+    const btn = document.getElementById(btnId);
+    btn.disabled = loading;
+    btn.innerHTML = loading ? `<span class="spinner"></span> Please wait...` : label;
+  }
+
+  async function register() {
+    const name  = document.getElementById('reg-name').value.trim();
+    const phone = document.getElementById('reg-phone').value.trim();
+    const pass  = document.getElementById('reg-pass').value;
+    if (!name || !phone || !pass) return showRes('reg-res', 'Please fill in all fields.', 'error');
+    setLoading('reg-btn', true, 'Continue →');
+    try {
+      // Step 1: Register the user
+      const r = await fetch(BASE + '/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customer_name: name, phone_number: phone, password: pass })
+      });
+      const d = await r.json();
+      if (d.error) return showRes('reg-res', d.error, 'error');
+
+      // Step 2: Send OTP
+      const r2 = await fetch(BASE + '/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number: phone })
+      });
+      const d2 = await r2.json();
+      if (d2.error) return showRes('reg-res', d2.error, 'error');
+
+      // Show OTP step
+      document.getElementById('reg-step1').style.display = 'none';
+      document.getElementById('reg-step2').style.display = 'block';
+      document.getElementById('reg-s1').className = 'step-dot done';
+      document.getElementById('reg-s2').className = 'step-dot active';
+      showRes('reg-res', 'OTP sent to your WhatsApp!', 'success');
+    } catch(e) {
+      showRes('reg-res', 'Cannot connect to server. Make sure FastAPI is running on port 8000.', 'error');
+    } finally {
+      setLoading('reg-btn', false, 'Continue →');
+    }
+  }
+
+  async function verifyRegOTP() {
+    const phone = document.getElementById('reg-phone').value.trim();
+    const code  = document.getElementById('reg-otp').value.trim();
+    if (!code) return showRes('reg-res', 'Please enter the OTP.', 'error');
+    setLoading('reg-verify-btn', true, 'Verify & Activate');
+    try {
+      const r = await fetch(BASE + '/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number: phone, otp_code: code })
+      });
+      const d = await r.json();
+      if (d.error) return showRes('reg-res', d.error, 'error');
+      showRes('reg-res', 'Account verified! You can now sign in.', 'success');
+      document.getElementById('reg-step2').style.display = 'none';
+      document.getElementById('reg-s2').className = 'step-dot done';
+    } catch(e) {
+      showRes('reg-res', 'Cannot connect to server. Make sure FastAPI is running on port 8000.', 'error');
+    } finally {
+      setLoading('reg-verify-btn', false, 'Verify & Activate');
+    }
+  }
+
+  async function resendRegOTP() {
+    const phone = document.getElementById('reg-phone').value.trim();
+    try {
+      await fetch(BASE + '/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number: phone })
+      });
+      showRes('reg-res', 'OTP resent to your WhatsApp!', 'success');
+    } catch(e) {}
+  }
+
+  async function login() {
+    const phone = document.getElementById('login-phone').value.trim();
+    const pass  = document.getElementById('login-pass').value;
+    if (!phone || !pass) return showRes('login-res', 'Please fill in all fields.', 'error');
+    setLoading('login-btn', true, 'Sign In');
+    try {
+      const r = await fetch(BASE + '/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number: phone, password: pass })
+      });
+      const d = await r.json();
+      if (d.token) {
+        localStorage.setItem('token', d.token);
+        localStorage.setItem('user', JSON.stringify(d.user));
+        showRes('login-res', `Welcome back, <strong>${d.user.customer_name}</strong>! Redirecting...`, 'success');
+        setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
+      } else {
+        showRes('login-res', d.error || d.message, d.error ? 'error' : 'success');
+      }
+    } catch(e) {
+      showRes('login-res', 'Cannot connect to server. Make sure FastAPI is running on port 8000.', 'error');
+    } finally {
+      setLoading('login-btn', false, 'Sign In');
+    }
+  }
+
+
+</script>
+</body>
+</html>
