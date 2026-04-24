@@ -1,6 +1,12 @@
+import os
+import sys
 import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import MagicMock, patch
+
+# Ensure the backend directory is in the path for imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from main import app
 
 client = TestClient(app)
