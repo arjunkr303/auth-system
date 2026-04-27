@@ -16,6 +16,6 @@
     "prettier": "^3.2.5"
   },
   "dependencies": {
-    "lint": "^0.8.19"
+    "lint": "^1.2.2"
   }
 }
