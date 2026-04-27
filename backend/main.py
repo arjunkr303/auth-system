@@ -93,7 +93,7 @@ def register(user: User):
 
     hashed = hash_password(user.password)
     cursor.execute(
-        "INSERT INTO users (customer_name, phone_number, password, is_verified) VALUES (%s, %s, %s, TRUE)",
+        "INSERT INTO users (customer_name, phone_number, password) VALUES (%s, %s, %s)",
         (user.customer_name, user.phone_number, hashed)
     )
     conn.commit()
@@ -131,8 +131,7 @@ def login(user: LoginUser):
         "user": {
             "id": existing_user["id"],
             "customer_name": existing_user["customer_name"],
-            "phone_number": existing_user["phone_number"],
-            "is_verified": existing_user["is_verified"]
+            "phone_number": existing_user["phone_number"]
         }
     }
 
@@ -144,7 +143,7 @@ def login(user: LoginUser):
 def get_me(phone: str = Depends(get_current_user)):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT id, customer_name, phone_number, is_verified, created_at FROM users WHERE phone_number = %s", (phone,))
+    cursor.execute("SELECT id, customer_name, phone_number, created_at FROM users WHERE phone_number = %s", (phone,))
     user = cursor.fetchone()
     cursor.close()
     conn.close()
