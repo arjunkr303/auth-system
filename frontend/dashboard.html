@@ -529,7 +529,9 @@
             method: 'POST',
             headers: { Authorization: `Bearer ${token}` },
           });
-        } catch (e) {}
+        } catch (e) {
+          // Ignore network errors on logout
+        }
         localStorage.clear();
         window.location.href = 'index.html';
       }
