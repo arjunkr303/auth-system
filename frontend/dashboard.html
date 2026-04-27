@@ -64,12 +64,29 @@
         pointer-events: none;
         animation: drift 15s ease-in-out infinite alternate;
       }
-      .orb1 { width: 600px; height: 600px; background: var(--accent); top: -200px; left: -100px; }
-      .orb2 { width: 500px; height: 500px; background: var(--accent2); bottom: -150px; right: -100px; animation-delay: -7s; }
+      .orb1 {
+        width: 600px;
+        height: 600px;
+        background: var(--accent);
+        top: -200px;
+        left: -100px;
+      }
+      .orb2 {
+        width: 500px;
+        height: 500px;
+        background: var(--accent2);
+        bottom: -150px;
+        right: -100px;
+        animation-delay: -7s;
+      }
 
       @keyframes drift {
-        from { transform: translate(0, 0) scale(1); }
-        to { transform: translate(40px, 30px) scale(1.1); }
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(40px, 30px) scale(1.1);
+        }
       }
 
       /* ── Logo & Header ── */
@@ -81,7 +98,11 @@
       .logo-icon {
         width: 32px;
         height: 32px;
-        background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(110, 231, 183, 0.1));
+        background: linear-gradient(
+          135deg,
+          rgba(56, 189, 248, 0.2),
+          rgba(110, 231, 183, 0.1)
+        );
         border: 1px solid var(--border-glow);
         border-radius: 8px;
         display: flex;
@@ -95,7 +116,9 @@
         letter-spacing: 1px;
         text-transform: uppercase;
       }
-      .logo-text span { color: var(--accent); }
+      .logo-text span {
+        color: var(--accent);
+      }
 
       /* ── Main Content ── */
       .content {
@@ -201,7 +224,11 @@
         right: 0;
         width: 300px;
         height: 100%;
-        background: radial-gradient(circle at center, rgba(56, 189, 248, 0.08), transparent 70%);
+        background: radial-gradient(
+          circle at center,
+          rgba(56, 189, 248, 0.08),
+          transparent 70%
+        );
         pointer-events: none;
       }
       .hero-text h1 {
@@ -229,7 +256,9 @@
         padding: 1.5rem;
         transition: border-color 0.3s;
       }
-      .stat-item:hover { border-color: var(--border-glow); }
+      .stat-item:hover {
+        border-color: var(--border-glow);
+      }
       .stat-header {
         display: flex;
         justify-content: space-between;
@@ -243,12 +272,31 @@
         align-items: center;
         justify-content: center;
       }
-      .stat-icon-box.blue { background: rgba(56, 189, 248, 0.1); color: var(--accent); }
-      .stat-icon-box.green { background: rgba(110, 231, 183, 0.1); color: var(--accent2); }
-      .stat-icon-box.purple { background: rgba(167, 139, 250, 0.1); color: #a78bfa; }
-      
-      .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-      .stat-value { font-family: var(--font-display); font-size: 24px; font-weight: 700; }
+      .stat-icon-box.blue {
+        background: rgba(56, 189, 248, 0.1);
+        color: var(--accent);
+      }
+      .stat-icon-box.green {
+        background: rgba(110, 231, 183, 0.1);
+        color: var(--accent2);
+      }
+      .stat-icon-box.purple {
+        background: rgba(167, 139, 250, 0.1);
+        color: #a78bfa;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+      }
+      .stat-value {
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 700;
+      }
 
       /* Tables / Lists */
       .card {
@@ -300,9 +348,17 @@
         justify-content: center;
         color: var(--accent);
       }
-      .activity-info { flex: 1; }
-      .activity-text { font-size: 13px; font-weight: 500; }
-      .activity-time { font-size: 11px; color: var(--muted); }
+      .activity-info {
+        flex: 1;
+      }
+      .activity-text {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .activity-time {
+        font-size: 11px;
+        color: var(--muted);
+      }
 
       .details-list {
         display: flex;
@@ -316,15 +372,32 @@
         border-bottom: 1px solid var(--border);
         font-size: 13px;
       }
-      .detail-row:last-child { border-bottom: none; }
-      .detail-label { color: var(--muted); }
-      .detail-value { font-weight: 500; }
+      .detail-row:last-child {
+        border-bottom: none;
+      }
+      .detail-label {
+        color: var(--muted);
+      }
+      .detail-value {
+        font-weight: 500;
+      }
 
       @media (max-width: 1024px) {
-        .dashboard-grid { grid-template-columns: 1fr; }
-        .content { padding: 1.5rem; }
-        .top-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
-        .user-profile { width: 100%; justify-content: space-between; }
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+        .content {
+          padding: 1.5rem;
+        }
+        .top-bar {
+          flex-direction: column;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+        .user-profile {
+          width: 100%;
+          justify-content: space-between;
+        }
       }
     </style>
   </head>
@@ -338,24 +411,44 @@
         <div class="nav-left">
           <div class="sidebar-header">
             <div class="logo-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                width="18"
+                height="18"
+              >
+                <path
+                  d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+                />
               </svg>
             </div>
             <div class="logo-text">Synx <span>AI</span></div>
           </div>
-          <div style="width: 1px; height: 20px; background: var(--border);"></div>
+          <div
+            style="width: 1px; height: 20px; background: var(--border)"
+          ></div>
           <div class="page-title">Dashboard Overview</div>
         </div>
-        
+
         <div class="user-profile">
           <div class="user-avatar" id="dash-avatar">--</div>
           <div class="user-info">
             <span id="nav-name">Loading...</span>
           </div>
           <button class="user-logout-btn" onclick="logout()" title="Logout">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              width="16"
+              height="16"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
           </button>
         </div>
@@ -366,16 +459,27 @@
         <div class="hero-card">
           <div class="hero-text">
             <h1>Welcome back, <span id="dash-name">...</span>!</h1>
-            <p>Your automation workspace is ready. Check your recent activity and system status below.</p>
+            <p>
+              Your automation workspace is ready. Check your recent activity and
+              system status below.
+            </p>
           </div>
         </div>
 
         <!-- Stats -->
-        <div class="stats-container" style="grid-column: 1 / -1;">
+        <div class="stats-container" style="grid-column: 1 / -1">
           <div class="stat-item">
             <div class="stat-header">
               <div class="stat-icon-box blue">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  width="20"
+                >
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                </svg>
               </div>
             </div>
             <div class="stat-label">System Health</div>
@@ -384,7 +488,15 @@
           <div class="stat-item">
             <div class="stat-header">
               <div class="stat-icon-box green">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  width="20"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
               </div>
             </div>
             <div class="stat-label">Security Level</div>
@@ -393,7 +505,16 @@
           <div class="stat-item">
             <div class="stat-header">
               <div class="stat-icon-box purple">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  width="20"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
               </div>
             </div>
             <div class="stat-label">Session Uptime</div>
@@ -405,12 +526,30 @@
         <div class="card">
           <div class="card-header">
             <h2 class="card-title">Recent Activity</h2>
-            <a href="#" style="font-size: 11px; color: var(--accent); text-decoration: none;">View All</a>
+            <a
+              href="#"
+              style="
+                font-size: 11px;
+                color: var(--accent);
+                text-decoration: none;
+              "
+              >View All</a
+            >
           </div>
           <div class="activity-list">
             <div class="activity-item">
               <div class="activity-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 5 12 10 7"/><line x1="15" y1="12" x2="5" y2="12"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  width="14"
+                >
+                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                  <polyline points="10 17 5 12 10 7" />
+                  <line x1="15" y1="12" x2="5" y2="12" />
+                </svg>
               </div>
               <div class="activity-info">
                 <div class="activity-text">Successful Login</div>
@@ -418,8 +557,17 @@
               </div>
             </div>
             <div class="activity-item">
-              <div class="activity-icon" style="color: var(--accent2);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <div class="activity-icon" style="color: var(--accent2)">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  width="14"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
               </div>
               <div class="activity-info">
                 <div class="activity-text">Profile Updated</div>
@@ -427,8 +575,20 @@
               </div>
             </div>
             <div class="activity-item">
-              <div class="activity-icon" style="color: #fbbf24;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <div class="activity-icon" style="color: #fbbf24">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  width="14"
+                >
+                  <path
+                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                  />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
               </div>
               <div class="activity-info">
                 <div class="activity-text">Security Warning</div>
@@ -458,7 +618,9 @@
             </div>
             <div class="detail-row">
               <span class="detail-label">Plan</span>
-              <span class="detail-value" style="color: var(--accent2);">Enterprise AI</span>
+              <span class="detail-value" style="color: var(--accent2)"
+                >Enterprise AI</span
+              >
             </div>
           </div>
         </div>
@@ -466,9 +628,11 @@
     </main>
 
     <script>
-      const BASE = window.location.hostname === 'localhost'
+      const BASE =
+        window.location.hostname === 'localhost'
           ? 'http://localhost:8000'
-          : window.location.hostname.includes('vercel.app') && window.location.hostname.includes('-git-')
+          : window.location.hostname.includes('vercel.app') &&
+              window.location.hostname.includes('-git-')
             ? 'https://auth-system-for-staging.onrender.com'
             : 'https://auth-system-for-production.onrender.com';
 
@@ -507,10 +671,17 @@
 
       function populateDashboard(user) {
         const name = user.customer_name || user.name || '—';
-        const initials = name.split(' ').map((w) => w[0]).join('').toUpperCase().slice(0, 2);
+        const initials = name
+          .split(' ')
+          .map((w) => w[0])
+          .join('')
+          .toUpperCase()
+          .slice(0, 2);
         const joinDate = user.created_at
           ? new Date(user.created_at).toLocaleDateString('en-IN', {
-              year: 'numeric', month: 'long', day: 'numeric',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
             })
           : '—';
 
@@ -518,7 +689,8 @@
         document.getElementById('dash-name').textContent = name.split(' ')[0];
         document.getElementById('dash-avatar').textContent = initials;
         document.getElementById('info-name').textContent = name;
-        document.getElementById('info-phone').textContent = user.phone_number || '—';
+        document.getElementById('info-phone').textContent =
+          user.phone_number || '—';
         document.getElementById('info-date').textContent = joinDate;
       }
 
