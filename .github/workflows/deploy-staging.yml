@@ -9,7 +9,7 @@ jobs:
     name: Deploy Frontend -> Vercel Staging
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Deploy to Vercel (preview)
         run: npx vercel --token=$VERCEL_TOKEN
